@@ -40,6 +40,10 @@ class BaseModelInitializer(ABC):
         """Get rope scaling args."""
         rope_scaling_args = {}
         if "rope_scaling" in self.hf_config:
+            
+            # Quick hack to set linear if doesn't exist 
+            self.hf_config.rope_scaling.setdefault("type", "linear")
+            
             if self.hf_config.rope_scaling is not None:
                 assert self.hf_config.rope_scaling["type"] == "linear", "only linear scaling is supported for now"
                 rope_scaling_args["seq_len_interpolation_factor"] = self.hf_config.rope_scaling["factor"]
