@@ -1,7 +1,7 @@
 python3 -m verl.trainer.main_ppo \
 algorithm.adv_estimator=gae \
-data.train_files=data/cleaned/verl_tasks/train/predictmove_500.parquet \
-data.val_files=data/cleaned/verl_tasks/eval/predictmove_100.parquet \
+data.train_files=data/cleaned/verl_tasks/train/predictmove_1000.parquet \
+data.val_files=data/cleaned/verl_tasks/eval/predictmove_64.parquet \
 data.train_batch_size=8 \
 data.val_batch_size=50 \
 data.max_prompt_length=1000 \
