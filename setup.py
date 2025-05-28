@@ -63,7 +63,6 @@ extras_require = {
 
 
 this_directory = Path(__file__).parent
-long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="verl",
@@ -82,6 +81,6 @@ setup(
         "verl": ["trainer/config/*.yaml"],
     },
     include_package_data=True,
-    long_description=long_description,
+    long_description="No long description enabled.",
     long_description_content_type="text/markdown",
 )

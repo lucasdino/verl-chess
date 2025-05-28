@@ -1,4 +1,9 @@
+# My changes
+*/verl_defaults
+*/archive
 
+
+# veRL Default
 **/*.pt
 **/checkpoints
 **/wget-log
