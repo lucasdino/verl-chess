@@ -18,9 +18,9 @@ def compute_score(solution_str, ground_truth_str, format_score=0.0):
         predicted_answer = None
 
     # Debugging
-    if True:
-        print(f"Extracted answer: {predicted_answer}; In ground truth: {predicted_answer in ground_truth}")
-        print(f"Total Generation:\n{solution_str}\n{'='*60}\n\n\n") 
+    # if False:
+    #     print(f"Extracted answer: {predicted_answer}; In ground truth: {predicted_answer in ground_truth}")
+    #     print(f"Total Generation:\n{solution_str}\n{'='*60}\n\n\n") 
 
     # Return reward
     if predicted_answer is None:
