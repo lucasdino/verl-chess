@@ -2,7 +2,7 @@ import ast
 from .chess_utils.parsing import coerce_response, extract_solution
 
 
-def compute_score(solution_str, ground_truth_str, format_score=0.0):
+def compute_score(solution_str, ground_truth_str):
     """
     The scoring function for our chess engine's RL learning loop.
     
@@ -24,9 +24,9 @@ def compute_score(solution_str, ground_truth_str, format_score=0.0):
 
     # Return reward
     if predicted_answer is None:
-        return -0.1
+        return -0.5
     else:
         if predicted_answer in ground_truth:
-            return ground_truth[predicted_answer] + format_score
+            return ground_truth[predicted_answer]
         else:
-            return format_score
+            return -0.2
