@@ -41,8 +41,9 @@ class BaseModelInitializer(ABC):
         rope_scaling_args = {}
         if "rope_scaling" in self.hf_config:
             
-            # Quick hack to set linear if doesn't exist 
-            self.hf_config.rope_scaling.setdefault("type", "linear")
+            # Quick hack to set linear if doesn't exist
+            if self.hf_config.rope_scaling is not None and isinstance(self.hf_config.rope_scaling, dict):
+                self.hf_config.rope_scaling.setdefault("type", "linear")
             
             if self.hf_config.rope_scaling is not None:
                 assert self.hf_config.rope_scaling["type"] == "linear", "only linear scaling is supported for now"
