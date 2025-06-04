@@ -516,7 +516,7 @@ class MegatronModelMerger(BaseModelMerger):
             ("output_layer", "lm_head"),
             ("self_attention.linear_q", "self_attn.q_proj"),
             ("self_attention.linear_k", "self_attn.k_proj"),
-            ("self_attention.linear_v", "self_attn.v_proj"),
+            ("self_attention.linear_v", "self_attn.v_proj"),        
         ]
 
         for original_name, loaded_weight in state_dict.items():
