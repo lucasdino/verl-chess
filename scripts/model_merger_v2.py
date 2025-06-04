@@ -104,9 +104,7 @@ class BaseModelMerger(ABC):
             self.hf_model_config_path = config.hf_model_path
 
         self.model_config = AutoConfig.from_pretrained(self.hf_model_config_path)
-        if config.tie_word_embedding:
-            self.model_config.tie_word_embeddings = True
-
+        
     def get_transformers_auto_model_class(self):
         if "ForTokenClassification" in self.model_config.architectures[0]:
             return AutoModelForTokenClassification
@@ -138,9 +136,6 @@ class BaseModelMerger(ABC):
         model.to_empty(device="cpu")
         model = self.patch_model_generation_config(model)
     
-        if self.config.tie_word_embedding:
-            model.config.tie_word_embeddings = True  # will be dumped to config.json
-
         print(f"Saving model to {self.config.target_dir}")
         model.save_pretrained(self.config.target_dir, state_dict=state_dict)
         del state_dict
