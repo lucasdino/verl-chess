@@ -453,6 +453,11 @@ class MegatronModelMerger(BaseModelMerger):
                         new_key_list[2] = str(global_layer_no)
                         new_key = ".".join(new_key_list)
 
+                        # Hack because verl never works oob 
+                        if new_key.startswith("decoder."):
+                            new_key = new_key.replace("decoder.", "model.", 1)
+
+
                     tp_data = [model_state_dict_lst[pp_rank][tp_rank][vpp_rank][key] for tp_rank in range(tp_size)]
                     merged = self._merge_across_tp(new_key, tp_data, self.model_config, tp_size, self.config.is_value_model)
 
