@@ -27,7 +27,7 @@ def compute_score(solution_str, ground_truth_str):
         reward = ground_truth.get(predicted_answer, -0.2)
     
     # Debugging
-    print(f"Extracted answer: {predicted_answer}; In ground truth: {predicted_answer in ground_truth}; Reward={reward}")
+    # print(f"Extracted answer: {predicted_answer}; In ground truth: {predicted_answer in ground_truth}; Reward={reward}")
     # print(f"Total Generation:\n{solution_str}\n{'='*60}\n\n\n") 
 
     return reward
