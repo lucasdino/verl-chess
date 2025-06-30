@@ -34,10 +34,15 @@ def _default_compute_score(data_source, solution_str, ground_truth, extra_info=N
         from . import math_dapo
 
         res = math_dapo.compute_score(solution_str, ground_truth)
-    elif data_source == 'chess_predictmove':
-        from . import chess_predictmove
-
-        res = chess_predictmove.compute_score(solution_str, ground_truth)
+    elif data_source in [
+        "chess_predictmove",
+        "chess_bestmove",
+        "chess_worstmove",
+        "chess_legalmoves"
+    ]:
+        from . import chess
+    
+        res = chess.compute_score(solution_str, ground_truth, data_source)
     elif data_source in [
         "numina_aops_forum",
         "numina_synthetic_math",
