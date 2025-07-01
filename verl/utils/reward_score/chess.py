@@ -28,7 +28,8 @@ def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
         predicted_answer = coerce_response(extract_solution(solution_str, task_type))
         if len(predicted_answer) > 100:
             predicted_answer = None
-    except:
+    except Exception as e:
+        print(f"Exception encountered: {e}")
         predicted_answer = None
 
     reward = 0
