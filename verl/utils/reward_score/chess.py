@@ -10,7 +10,7 @@ DATASOURCE_MAPPING = {
 }
 
 
-def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
+def compute_score(solution_str, ground_truth_str, datasource, verbose=False):
     """
     The scoring function for our chess engine's RL learning loop.
     
@@ -37,22 +37,22 @@ def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
     if task_type == "choose_from_n":
         gt_ans, gt_candidates = ground_truth['answer'], ground_truth['candidates']
 
-        if verbose:
-            print(f"[{task_type}] Extracted answer: {predicted_answer}; In candidates? {predicted_answer in gt_candidates}; Correct? {predicted_answer == gt_ans}")
-        
         if predicted_answer == gt_ans:
             reward += 1
         elif predicted_answer not in gt_candidates:
             reward -= 0.2
 
+        if verbose:
+            print(f"[{task_type}] Extracted answer: {predicted_answer}; In candidates? {predicted_answer in gt_candidates}; Reward = {reward}")
+
     # Tasks like 'legalmoves'
     elif task_type == "produce_list":
         tp, tp_fp_fn = _score_legalmoves(predicted_answer, ground_truth)
         tp_reward = tp / tp_fp_fn    # If div by 0 then error w/ underlying data; should never happen.
+        reward += tp_reward
 
         if verbose:
-            print(f"[{task_type}] Extracted answer: {predicted_answer}; TP: {tp}; TP+FP+FN: {tp_fp_fn}; Reward = {tp_reward}")
-        reward += tp_reward
+            print(f"[{task_type}] Extracted answer: {predicted_answer}; TP: {tp}; TP+FP+FN: {tp_fp_fn}; Reward = {reward}")
 
     # Tasks like 'predictmove'
     elif task_type == "predict_singlemove":
@@ -60,6 +60,7 @@ def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
             reward += -0.5
         else:
             reward += ground_truth.get(predicted_answer, -0.2)
+        
         if verbose:
             print(f"Extracted answer: {predicted_answer}; In ground truth? {predicted_answer in ground_truth}; Reward = {reward}")
 
