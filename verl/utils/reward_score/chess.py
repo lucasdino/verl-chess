@@ -25,11 +25,10 @@ def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
 
     try: 
         ground_truth = pqt_extract_ground_truth(ground_truth_str, task_type)
-        predicted_answer = coerce_response(extract_solution(solution_str, task_type))
+        predicted_answer = coerce_response(extract_solution(solution_str), task_type)
         if len(predicted_answer) > 100:
             predicted_answer = None
     except Exception as e:
-        print(f"Exception encountered: {e}")
         predicted_answer = None
 
     reward = 0
