@@ -48,11 +48,11 @@ def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
     # Tasks like 'legalmoves'
     elif task_type == "produce_list":
         tp, tp_fp_fn = _score_legalmoves(predicted_answer, ground_truth)
-        reward = tp / tp_fp_fn    # If div by 0 then error w/ underlying data; should never happen.
+        tp_reward = tp / tp_fp_fn    # If div by 0 then error w/ underlying data; should never happen.
 
         if verbose:
-            print(f"[{task_type}] Extracted answer: {predicted_answer}; TP: {tp}; TP+FP+FN: {tp_fp_fn}; Reward = {tp / tp_fp_fn}")
-        reward += reward
+            print(f"[{task_type}] Extracted answer: {predicted_answer}; TP: {tp}; TP+FP+FN: {tp_fp_fn}; Reward = {tp_reward}")
+        reward += tp_reward
 
     # Tasks like 'predictmove'
     elif task_type == "predict_singlemove":
@@ -76,14 +76,15 @@ def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
 # =========================================
 def _score_legalmoves(predicted, ground_truth):
     tp, tp_fp_fn = 0, 0
-    guessed = {}
+    guessed = set()
 
-    for move in predicted:
-        if move in ground_truth and move not in guessed:
-            tp += 1
-            guessed.add(move)
-        else:
+    if isinstance(predicted, list):
+        for move in predicted:
             tp_fp_fn += 1
+            if move in ground_truth and move not in guessed:
+                tp += 1
+                guessed.add(move)
+            
     tp_fp_fn += (len(ground_truth) - tp)   # Have to include fp
 
     return tp, tp_fp_fn
