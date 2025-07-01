@@ -56,12 +56,12 @@ def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
 
     # Tasks like 'predictmove'
     elif task_type == "predict_singlemove":
-        if verbose:
-            print(f"Extracted answer: {predicted_answer}; In ground truth? {predicted_answer in ground_truth}; Reward = {reward}")
         if predicted_answer is None:
             reward += -0.5
         else:
             reward += ground_truth.get(predicted_answer, -0.2)
+        if verbose:
+            print(f"Extracted answer: {predicted_answer}; In ground truth? {predicted_answer in ground_truth}; Reward = {reward}")
 
     # Debugging
     # print(f"Total Generation:\n{solution_str}\n{'='*60}\n\n\n") 
