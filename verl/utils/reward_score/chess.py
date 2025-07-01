@@ -10,7 +10,7 @@ DATASOURCE_MAPPING = {
 }
 
 
-def compute_score(solution_str, ground_truth_str, datasource, verbose=False):
+def compute_score(solution_str, ground_truth_str, datasource, verbose=True):
     """
     The scoring function for our chess engine's RL learning loop.
     
@@ -20,7 +20,7 @@ def compute_score(solution_str, ground_truth_str, datasource, verbose=False):
         datasource   (str): Key relating to the datasource sample is from
     """
     # Start by getting our task type for score computation
-    assert task_type in DATASOURCE_MAPPING
+    assert datasource in DATASOURCE_MAPPING
     task_type = DATASOURCE_MAPPING[datasource]
 
     try: 
