@@ -36,7 +36,6 @@ install_requires = [
     "pybind11",
     "pylatexenc",
     "ray[default]>=2.41.0",
-    "torch==2.7.1",
     "torchdata",
     "tensordict<=0.6.2",
     "transformers",
@@ -61,7 +60,9 @@ extras_require = {
     "vllm": VLLM_REQUIRES,
     "sglang": SGLANG_REQUIRES,
 }
-
+# CUSTOM PATCH FOR EVAL
+EVAL_REQUIRES = ["torch==2.7.1"] 
+extras_require['eval'] = EVAL_REQUIRES
 
 this_directory = Path(__file__).parent
 
